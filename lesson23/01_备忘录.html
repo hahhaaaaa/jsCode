@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        .completed {
+            color: red;
+            text-decoration: line-through;
+        }
+    </style>
+</head>
+
+<body>
+    <input type="text" id="addText">
+    <input type="button" value="增加" id="addBtn">
+    <ul id="todolist">
+        <li>HTML</li>
+        <li class="completed">CSS</li>
+        <li>JS</li>
+    </ul>
+    <div id="btns">
+        <span>全部</span>
+        <a href="#">已完成</a>
+        <a href="#">未完成</a>
+    </div>
+
+    <script src="../jquery-1.12.4.min.js"></script>
+
+    <script>
+        $("#addBtn").click(function () {
+            $("<li>")
+                .text($("#addText").val())
+                .appendTo($("#todolist"));
+            $("#addText").val("");
+        })
+
+        // $("#todolist > li").click(function () {
+        //     $(this).toggleClass("completed");
+        // })
+
+        $("#todolist").on("click", "li", function () {
+            $(this).toggleClass("completed");
+        });
+
+        let lis = $("#todolist").children();
+        
+        $("#btns").on("click", "a", function () {
+            $("#btns span").replaceWith(`<a href="#">${$('#btns span').text()}<a>`);
+            $(this).replaceWith(`<span>${$(this).text()}<span>`);
+            if ($(this).text() == "已完成") {
+                let filterLi = lis.filter(".completed");
+                $("#todolist").html(filterLi);
+            } else if ($(this).text() == "未完成") {
+                let filterLi = lis.not('.completed');
+                $("#todolist").html(filterLi);
+            } else if ($(this).text() == "全部") {
+                $("#todolist").html(lis);
+            }
+        })
+
+
+
+        // on: 最常用的绑定事件的方式，可以为同一个节点添加多个同类型事件。
+        // one: 事件绑定成功后只会执行一次。
+        // live: 事件委托，后面被 delegate 替代。
+        // delegate: 事件委托， 3.0 后被废除。
+        // bind: 早期的 on，后面被 on 替代。
+
+    </script>
+</body>
+
+</html>

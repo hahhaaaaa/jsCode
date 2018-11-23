@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        .completed {
+            color: red;
+            text-decoration: line-through;
+        }
+    </style>
+</head>
+
+<body>
+    <input type="text" id="addText">
+    <input type="button" value="增加" id="addBtn">
+    <ul id="todolist"></ul>
+    <div id="btns"></div>
+
+    <script src="../jquery-1.12.4.min.js"></script>
+
+    <script>
+        let listData = [
+            { text: 'HTML', completed: false },
+            { text: 'CSS', completed: true },
+            { text: 'JS', completed: false }
+        ];
+        let state = "全部";
+
+        render();
+        btnRender();
+
+        function render() {
+            $("#todolist").empty();
+            filterList().forEach(item => {
+                $("<li>")
+                    .text(item.text)
+                    .addClass(item.completed ? "completed" : "")
+                    .appendTo($("#todolist"))
+                    .click(function () {
+                        item.completed = !item.completed;
+                        render();
+                    })
+            });
+        }
+
+        $("#addBtn").click(function () {
+            listData.push({ text: $("#addText").val(), completed: false });
+            render();
+            $("#addText").val("");
+        })
+
+        function btnRender() {
+            $("#btns").empty();
+            ["全部", "已完成", "未完成"].forEach(item => {
+                if (item == state) {
+                    $("<span>").text(item).appendTo($("#btns"));
+                } else {
+                    $("<a>")
+                        .text(item)
+                        .attr("href", "#")
+                        .appendTo($("#btns"))
+                        .click(function (e) {
+                            e.preventDefault();
+                            state = item;
+                            btnRender();
+                            render();
+                        })
+                }
+            })
+        }
+
+        function filterList() {
+            switch (state) {
+                case '全部': return listData;
+                case '已完成': return listData.filter(item => item.completed);
+                case '未完成': return listData.filter(item => !item.completed);
+            }
+        }
+
+    </script>
+
+</body>
+
+</html>

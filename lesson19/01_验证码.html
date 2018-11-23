@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        svg {
+            width: 160px;
+            height: 50px;
+            border: 1px solid #ccc;
+        }
+    </style>
+</head>
+
+<body>
+    <svg>
+    </svg>
+    <input type="text" id="code">
+
+    <script src="../tools.js"></script>
+    <script>
+        let svg = document.querySelector("svg");
+        let code = document.getElementById("code");
+        let codeText = '1234567890qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM';
+        let codeStr = '';   // 保存生成的四个验证码
+
+        render();
+
+        function render() {
+            codeStr = '';
+            let str = '';
+            for (let i = 0; i < random(10, 20); i++) {
+                str += `<line 
+                    stroke="rgb(${random(255)},${random(255)},${random(255)})"
+                    x1="${random(svg.clientWidth)}" y1="${random(svg.clientHeight)}" 
+                    x2="${random(svg.clientWidth)}" y2="${random(svg.clientHeight)}">
+                    </line>`
+            }
+
+            for (let i = 0; i < 4; i++) {
+                let text = codeText[random(codeText.length - 1)];
+                codeStr += text;
+                str += `<text 
+                    style="font-size:40px"
+                    x="${random(i * 40, i * 40 + 20)}" y="${random(30, svg.clientHeight)}" 
+                    fill="rgb(${random(255)},${random(255)},${random(255)})">
+                    ${text}
+                    </text>`
+            }
+
+            svg.innerHTML = str;
+        }
+
+        svg.onclick = function () {
+            render();
+        }
+        code.onblur = function () {
+            console.log(code.value.toLowerCase(), codeStr.toLowerCase())
+            if (code.value.toLowerCase() == codeStr.toLowerCase()) {
+                console.log("正确");
+            } else {
+                console.log("不正确");
+            }
+        }
+
+    </script>
+</body>
+
+</html>

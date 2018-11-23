@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        #cvs {
+            background-color: #eee;
+        }
+    
+    </style>
+</head>
+<body>
+    <canvas width="600" height="600" id="cvs"></canvas>
+
+    <script>
+        let cvs = document.getElementById("cvs");
+        let ctx = cvs.getContext("2d");
+
+
+        // ctx.moveTo(100, 100);
+        // ctx.lineTo(200, 200);
+        // ctx.lineTo(300, 200);
+
+        // ctx.moveTo(400, 400);
+        // ctx.lineTo(400, 500);
+
+        // ctx.stroke();
+        
+
+
+        ctx.beginPath();    // 清空路径容器
+        ctx.moveTo(100, 100);
+        ctx.lineTo(100, 200);
+        ctx.lineTo(200, 200);
+        ctx.closePath();   // 闭合路径
+        ctx.stroke();
+
+
+        ctx.beginPath();        
+        ctx.moveTo(300, 300);
+        ctx.lineTo(300, 400);
+        ctx.lineTo(400, 400);
+        ctx.closePath();
+        ctx.fill();
+
+    </script>
+    
+</body>
+</html>

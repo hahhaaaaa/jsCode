@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        #box {
+            width: 100px;
+            height: 100px;
+            background-color: red;
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="box"></div>
+
+    <script>
+        let box = document.getElementById("box");
+
+        let x = 0;
+        let y = 0;
+
+        let dirX = 1;
+        let dirY = 1;
+        setInterval(() => {
+            x += dirX;
+            y += dirY;
+
+            if (y >= innerHeight - box.offsetHeight || y <= 0) {
+                dirY = -dirY;
+            }
+
+            if (x >= innerWidth - box.offsetWidth || x <= 0) {
+                dirX = -dirX;
+            }
+
+            box.style.left = x + "px";
+            box.style.top = y + "px";
+        }, 10)
+
+
+    </script>
+</body>
+
+</html>

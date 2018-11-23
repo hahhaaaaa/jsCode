@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1>注册</h1>
+    <input type="text" placeholder="账号" id="username">
+    <input type="text" placeholder="密码" id="password">
+    <input type="button" value="注册" id="regBtn">
+    <script src="../tools.js"></script>
+    <script>
+        let regBtn = document.getElementById("regBtn");
+        let username = document.getElementById("username");
+        let password = document.getElementById("password");
+
+        let users = getStorage("users");
+
+        regBtn.onclick = function () {
+            users.push({ username: username.value, password: password.value });
+            saveStorage("users", users);
+        }
+
+
+        
+
+
+    </script>
+</body>
+
+</html>

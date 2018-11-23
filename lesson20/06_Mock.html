@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Mock</title>
+</head>
+
+<body>
+    <script src="../mock-min.js"></script>
+    <script src="../tools.js"></script>
+
+    <script>
+        // 1. 生成随机数据
+        // let 随机数据 = Mock.mock(数据规则);
+
+        // let data = Mock.mock({
+        //     'students|5-10': [{
+        //         'id|+1': 1,
+        //         'name': '@cname',
+        //         'age|18-30': 1,
+        //         'address': '@county(true)',
+        //         'birth': '@date',
+        //         'gender|1': ["男", "女"],
+        //         'email': '@email',
+        //         'phone': /^1[358]\d{9}$/
+        //     }]
+        // });
+        // 2. 拦截 ajax 请求，并生成随机数据返回
+        // Mock.mock(请求路径, 数据规则)
+
+        // Mock.mock('/getStudents', {
+        //     'students|5-10': [{
+        //         'id|+1': 1,
+        //         'name': '@cname',
+        //         'age|18-30': 1,
+        //         'address': '@county(true)',
+        //         'birth': '@date',
+        //         'gender|1': ["男", "女"],
+        //         'email': '@email',
+        //         'phone': /^1[358]\d{9}$/
+        //     }]
+        // });
+        // ajax({
+        //     url: '/getStudents',
+        //     success: function (msg) {
+        //         console.log(msg);
+        //     }
+        // })
+        // 3. 拦截 ajax 请求，接收到 ajax 传递的参数
+        // Mock.mock(请求路径, function(options) { return 结果 })
+        // Mock.mock(/\/getStudents/, function (options) {
+        //     console.log('options', options.url.split("?")[1]);
+        //     return true;
+        // });
+
+        // ajax({
+        //     url: '/getStudents?id=1',
+        //     success: function (msg) {
+        //         console.log(msg);
+        //     }
+        // })
+
+        // 浏览器AJAX ---》 mock ---》 localStorage
+
+    </script>
+</body>
+
+</html>

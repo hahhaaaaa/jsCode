@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        #cvs {
+            background-color: #eee;
+        }
+    </style>
+</head>
+
+<body>
+    <canvas width="600" height="600" id="cvs"></canvas>
+
+    <script>
+        let cvs = document.getElementById("cvs");
+        let ctx = cvs.getContext("2d");
+
+        ctx.save();
+        ctx.fillStyle = "orange";
+        ctx.strokeStyle = "green";
+        ctx.lineWidth = 20;
+        ctx.lineJoin = "bevel"; // round:圆角  bevel：斜角   miter：直角（默认）
+        ctx.lineCap = "round";
+        ctx.beginPath();
+        ctx.rect(100, 100, 200, 200);
+        ctx.fill();
+        ctx.stroke();
+        ctx.restore();
+
+        ctx.save();
+        ctx.beginPath();
+        ctx.moveTo(400, 400);
+        ctx.lineTo(500, 400);
+        ctx.stroke();
+        
+
+
+
+        ctx.save();
+        // 写样式
+        ctx.beginPath();
+        // 画图形
+        ctx.restore();
+
+        
+    </script>
+
+</body>
+
+</html>

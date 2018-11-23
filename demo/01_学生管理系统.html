@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1>学生管理</h1>
+    <div>
+        <h3>增加</h3>
+        <div>
+            <label for="addName">姓名：</label>
+            <input id="addName" type="text">
+        </div>
+        <div>
+            <label for="addAge">年龄：</label>
+            <input id="addAge" type="text">
+        </div>
+        <div>
+            <label>性别：</label>
+            <input id="addMale" name="addGender" type="radio" value="男">
+            <label>男</label>
+            <input id="addFemale" name="addGender" type="radio" value="女">
+            <label>女</label>
+        </div>
+        <div>
+            <input id="addBtn" type="button" value="增加">
+        </div>
+    </div>
+    <div>
+        <h3>修改</h3>
+        <input type="hidden" id="updateId">
+        <div>
+            <label for="updateName">姓名：</label>
+            <input id="updateName" type="text">
+        </div>
+        <div>
+            <label for="updateAge">年龄：</label>
+            <input id="updateAge" type="text">
+        </div>
+        <div>
+            <label>性别：</label>
+            <input id="updateMale" name="updateGender" type="radio" value="男">
+            <label>男</label>
+            <input id="updateFemale" name="updateGender" type="radio" value="女">
+            <label>女</label>
+        </div>
+        <div>
+            <input type="button" id="updateBtn" value="确认修改">
+        </div>
+    </div>
+    <div>
+        <h3>查询</h3>
+        <select name="searchType" id="searchType">
+            <option value="name">姓名</option>
+            <option value="gender">性别</option>
+            <option value="age">年龄</option>
+        </select>
+        <input id="searchText" type="search">
+        <input id="searchBtn" type="button" value="搜索">
+    </div>
+    <div>
+        <h3>学生列表</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>姓名</th>
+                    <th>性别</th>
+                    <th>年龄</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody id="list">
+
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        let studentsData = [
+            { id: 1, name: '张三', age: '20', gender: '男' },
+            { id: 2, name: '李四', age: '18', gender: '女' },
+            { id: 3, name: '王五', age: '22', gender: '男' },
+            { id: 4, name: '刘备', age: '16', gender: '女' }
+        ];
+
+        let lastId = studentsData[studentsData.length - 1].id;
+
+        let list = document.getElementById("list");
+
+        render();
+
+        // 数据渲染
+        function render(data = studentsData) {
+            list.innerHTML = data.map(item => {
+                return `<tr>
+                            <td>${item.name}</td>
+                            <td>${item.gender}</td>
+                            <td>${item.age}</td>
+                            <td>
+                                <input type="button" value="修改" data-id="${item.id}"/>
+                                <input type="button" value="删除" data-id="${item.id}"/>
+                            </td>
+                        </tr>`
+            }).join("");
+        }
+
+        // 新增
+        let addBtn = document.getElementById("addBtn");
+        let addName = document.getElementById("addName");
+        let addAge = document.getElementById("addAge");
+        let addGender = document.getElementsByName('addGender');
+
+        addBtn.onclick = function () {
+            let name = addName.value;
+            let age = addAge.value;
+            // 判断被选中的性别
+            // 方法一：
+            // let gender;
+            // for (let item of addGender) {
+            //     if (item.checked) {
+            //         gender = item.value;
+            //     }
+            // }
+            // 方法二：
+            let gender = addGender[0].checked ? addGender[0].value : addGender[1].value;
+
+            studentsData.push({ id: ++lastId, name, age, gender });
+            render();
+        }
+
+        // 删除和修改
+        let updateId = document.getElementById("updateId");
+        let updateName = document.getElementById("updateName");
+        let updateAge = document.getElementById("updateAge");
+        let updateGender = document.getElementsByName('updateGender');
+        list.onclick = function (e) {
+            if (e.target.value == "删除") {
+                let studentsId = e.target.dataset.id;
+                // 通过删除按钮的id找到对应学生
+                // 方法一：
+                // for (let i = 0; i < studentsData.length; i++) {
+                //     if(studentsData[i].id == studentsId){
+                //         studentsData.splice(i, 1);
+                //         break;
+                //     }
+                // }
+                // 方法二：
+                let [student] = studentsData.filter(item => item.id == studentsId);
+                let i = studentsData.indexOf(student);
+                studentsData.splice(i, 1);
+                render();
+            }
+            if (e.target.value == "修改") {
+                let studentsId = e.target.dataset.id;
+                let [student] = studentsData.filter(item => item.id == studentsId);
+                updateId.value = student.id;
+                updateName.value = student.name;
+                updateAge.value = student.age;
+                student.gender == updateGender[0].value ? updateGender[0].checked = true : updateGender[1].checked = true;
+            }
+        }
+
+        let updateBtn = document.getElementById("updateBtn");
+        updateBtn.onclick = function () {
+            let id = updateId.value;
+            let name = updateName.value;
+            let age = updateAge.value;
+            let gender = updateGender[0].checked ? updateGender[0].value : updateGender[1].value;
+            for (let i = 0; i < studentsData.length; i++) {
+                if (studentsData[i].id == id) {
+                    studentsData[i] = { id, name, age, gender };
+                    break;
+                }
+            }
+            render();
+        }
+
+        // 查询
+        let searchBtn = document.getElementById("searchBtn");
+        let searchType = document.getElementById("searchType");
+        let searchText = document.getElementById("searchText");
+
+        searchBtn.onclick = function () {
+            let type = searchType.value;   // 用户搜索的类型："name" "age" "gender"
+            let text = searchText.value;   // 用户搜索的值
+            let searchData = [];
+            for (let item of studentsData) {
+                // if (item[type] == text) {
+                //     searchData.push(item);
+                // }
+                if (item[type].includes(text)) {
+                    searchData.push(item);
+                }
+            }
+            render(searchData);
+        }
+
+    </script>
+</body>
+
+</html>

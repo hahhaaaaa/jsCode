@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>商品编号</th>
+                <th>商品名称</th>
+                <th>商品单价</th>
+                <th>商品数量</th>
+                <th>商品总价</th>
+            </tr>
+        </thead>
+        <tbody id="goodsList">
+            <!-- <tr>
+                <td>1</td>
+                <td>苹果</td>
+                <td>3</td>
+                <td>
+                    <input type="button" value="-">
+                    <span>1</span>
+                    <input type="button" value="+">
+                </td>
+                <td>3</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>香蕉</td>
+                <td>5</td>
+                <td>
+                    <input type="button" value="-">
+                    <span>1</span>
+                    <input type="button" value="+">
+                </td>
+                <td>5</td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>梨</td>
+                <td>1</td>
+                <td>
+                    <input type="button" value="-">
+                    <span>1</span>
+                    <input type="button" value="+">
+                </td>
+                <td>1</td>
+            </tr> -->
+        </tbody>
+    </table>
+
+    <script>
+
+        let goodsData = [
+            { id: 1, name: '苹果', price: 5, count: 1 },
+            { id: 2, name: '香蕉', price: 10, count: 1 },
+            { id: 3, name: '梨', price: 3, count: 1 }
+        ];
+
+
+        let goodsList = document.getElementById("goodsList");
+        render();
+        
+        function render() {
+            goodsList.innerHTML = goodsData.map((item, index) => {
+                return `<tr>
+                        <td>${item.id}</td>
+                        <td>${item.name}</td>
+                        <td>${item.price}</td>
+                        <td>
+                            <input type="button" value="-">
+                            <span>${item.count}</span>
+                            <input type="button" value="+" data-index="${index}">
+                        </td>
+                        <td>${item.price * item.count}</td>
+                    </tr>`;
+            }).join("");
+        }
+
+
+        goodsList.onclick = function (e) {
+            if (e.target.value == "+") {
+                let index = e.target.dataset.index;
+                goodsData[index].count++;
+                render();
+            }
+        }
+
+
+
+        // render();
+        // function render() {
+        //     let str = '';
+        //     for (let i = 0; i < goodsData.length; i++) {
+        //         str += `<tr>
+        //         <td>${goodsData[i].id}</td>
+        //         <td>${goodsData[i].name}</td>
+        //         <td>${goodsData[i].price}</td>
+        //         <td>
+        //             <input type="button" value="-">
+        //             <span>${goodsData[i].count}</span>
+        //             <input type="button" value="+" data-index="${i}">
+        //         </td>
+        //         <td>${goodsData[i].price * goodsData[i].count}</td>
+        //     </tr>
+        //     `
+        //     }
+        //     goodsList.innerHTML = str;
+        // }
+
+        // goodsList.onclick = function (e) {
+        //     if (e.target.value == "+") {
+        //         let index = e.target.dataset.index;
+        //         goodsData[index].count++;
+        //         render();
+        //     }
+        // }
+
+
+
+
+
+
+
+
+        // let goodsList = document.getElementById("goodsList");
+        // goodsList.onclick = function(e) {
+        //     if(e.target.value == "+") {
+        //         // 数量
+        //         let count = ++e.target.previousElementSibling.innerText;
+        //         // 单价
+        //         let price = e.target.parentElement.previousElementSibling.innerText;
+        //         // 总价
+        //         e.target.parentElement.nextElementSibling.innerText = count * price;
+        //     }
+        // }
+
+
+
+    </script>
+
+</body>
+
+</html>

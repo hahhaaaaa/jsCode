@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        #cvs {
+            background-color: #eee;
+        }
+    </style>
+</head>
+
+<body>
+    <canvas width="600" height="600" id="cvs"></canvas>
+
+    <script>
+        let cvs = document.getElementById("cvs");
+        let ctx = cvs.getContext("2d");
+
+        // 1. 实心矩形
+        // ctx.fillRect(x, y, width, height);
+        ctx.fillRect(0, 0, 100, 100);
+        // 2. 空心矩形
+        // ctx.strokeRect(x, y, wdith, height);
+        ctx.strokeRect(100, 100, 100, 100);
+        // 3. 既没有边框也没有填充色
+        // ctx.rect(x, y, width, height);
+        ctx.rect(200, 200, 100, 100);
+        // 4. 清除一个矩形区域
+        // ctx.clearRect(x, y, width, height);
+        ctx.clearRect(50, 50, 100, 100);
+
+        // 画线条
+        ctx.stroke();
+        // 画背景色
+        ctx.fill();
+
+        // 清空整个画布
+        ctx.clearRect(0, 0, cvs.width, cvs.height);
+
+
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <input type="button" value="点击">
+
+    <script>
+        // 事件三要素：
+        // 1. 事件源：绑定事件的元素
+        // 2. 事件类型：行为、操作、方式（例如：鼠标单击、双击、移动）
+        // 3. 事件处理函数：事件发生时要执行的操作
+
+        // 添加事件的三种方式：
+        // 1. 在 HTML 上添加
+        // function test() {
+        //     alert("hello");
+        // }
+        // 2. DOM 0级添加方式
+        let btn = document.querySelector("input");
+        // btn.onclick = function() {
+        //     alert("hello");
+        // }
+        // btn.onclick = function() {
+        //     alert("world");
+        // }
+        // 缺点：同一事件源身上同一类型的事件只能绑定一个（后面会覆盖前面）
+        // 优点：兼容性强
+        // 3. DOM 2级添加方式
+        function test() {
+            alert("hello");
+        }
+        btn.addEventListener("click", test);
+        // btn.addEventListener("click", function() {
+        //     alert("world");
+        // });
+        // 优点：同一事件源身上同一类型的事件可以绑定多个
+        // 缺点：兼容性弱
+
+        // 删除事件的两种方式
+        // 1. DOM0
+        // btn.onclick = null;
+        // 2. DOM2
+        btn.removeEventListener("click", test);
+
+
+
+    </script>
+</body>
+
+</html>

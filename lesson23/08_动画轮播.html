@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        #slider {
+            width: 1000px;
+            height: 358px;
+            border: 1px solid #ccc;
+            position: relative;
+            overflow: hidden;
+            margin: 0 auto;
+        }
+
+        #slider>img {
+            position: absolute;
+            top: 0;
+        }
+
+        #slider>img:first-child {
+            left: 0;
+        }
+
+        #slider>img:last-child {
+            left: 1000px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="slider">
+        <img src="./images/shutter_1.jpg" alt="">
+        <img src="./images/shutter_2.jpg" alt="">
+    </div>
+
+    <script src="../jquery-1.12.4.min.js"></script>
+
+    <script>
+        let imgs = ['shutter_1.jpg', 'shutter_2.jpg', 'shutter_3.jpg', 'shutter_4.jpg']
+        
+        let index = 1;
+
+        setInterval(() => {
+            $("#slider>img").each(function (i) {
+                let x = $(this).position().left;
+                x -= 10;
+                if (x <= -1000) {
+                    x = 1000;
+                    index++;
+                    if(index > 3) {
+                        index = 0;
+                    }
+                    $(this).attr("src", `./images/${imgs[index]}`)
+                }
+                $(this).css("left", x);
+            })
+        }, 30)
+        
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+    <script src="../tools.js"></script>
+
+    <script>
+        // 回调地狱
+        ajax({
+            url: './data/students.json',
+            success: function (msg) {
+                for (let item of msg) {
+                    if (item.name == "张三") {
+                        let classId = item.classId;
+                        ajax({
+                            url: './data/classes.json',
+                            success(msg) {
+                                for (let i of msg) {
+                                    if (i.id == classId) {
+                                        let teacherId = i.teacherId;
+                                        ajax({
+                                            url: './data/teachers.json',
+                                            success(msg) {
+                                                for (let t of msg) {
+                                                    if (t.id == teacherId) {
+                                                        console.log(t.name);
+                                                    }
+                                                }
+                                            }
+                                        })
+                                    }
+                                }
+                            }
+                        })
+                    }
+                }
+            }
+        });
+
+
+
+
+
+
+    </script>
+</body>
+
+</html>

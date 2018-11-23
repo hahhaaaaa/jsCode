@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>注册验证</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        .input-wrap {
+            display: flex;
+            align-items: center;
+        }
+
+        .input-wrap>label {
+            display: inline-block;
+            width: 80px;
+            text-align: right;
+        }
+
+        .input-wrap>input {
+            border: 1px solid #ccc;
+            width: 198px;
+            height: 30px;
+        }
+
+        .prompt {
+            margin-left: 10px;
+        }
+
+        .temp {
+            height: 30px;
+            margin-left: 80px;
+        }
+
+        .pwdLevel {
+            list-style-type: none;
+            width: 200px;
+            line-height: 20px;
+            display: flex;
+            font-size: 12px;
+            justify-content: space-between;
+        }
+
+        .pwdLevel>li {
+            height: 20px;
+            text-align: center;
+            flex-grow: 1;
+            border: 1px solid #fff;
+            background-color: #ccc;
+            color: white;
+            position: relative;
+        }
+
+        .pwdLevel>li>span {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            left: 0;
+            top: 0;
+        }
+
+        .level-text {
+            z-index: 9;
+        }
+
+        @keyframes levelStyle {
+            0% {
+                width: 0%;
+            }
+            100% {
+                width: 100%;
+            }
+        }
+
+        @keyframes backLevelStyle {
+            0% {
+                width: 100%;
+            }
+            100% {
+                width: 0%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <form class="registerForm">
+        <div class="input-wrap">
+            <label for="phone">手机号：</label>
+            <input type="text" id="phone">
+            <span class="prompt"></span>
+        </div>
+        <div class="temp"></div>
+        <div class="input-wrap">
+            <label for="code">验证码：</label>
+            <input type="text" id="code">
+            <span class="prompt"></span>
+        </div>
+        <div class="temp"></div>
+        <div class="input-wrap">
+            <label for="pwd">密码：</label>
+            <input type="text" id="pwd">
+            <span class="prompt"></span>
+        </div>
+        <div class="temp"></div>
+        <div class="input-wrap">
+            <label for="rePwd">确认密码：</label>
+            <input type="text" id="rePwd">
+            <span class="prompt"></span>
+        </div>
+        <div class="temp"></div>
+        <div class="input-wrap">
+            <label for=""></label>
+            <input type="submit" id="registerBtn">
+        </div>
+    </form>
+
+    <script>
+        let phone = document.getElementById("phone");
+        let code = document.getElementById("code");
+        let pwd = document.getElementById("pwd");
+        let rePwd = document.getElementById("rePwd");
+        let registerBtn = document.getElementById("registerBtn");
+
+        let flag4 = false;
+
+        let phoneObject = {
+            node: phone,
+            regExp: /^1\d{10}$/,
+            flag: false
+        }
+        let codeObject = {
+            node: code,
+            regExp: /^\d{6}$/,
+            flag: false
+        }
+        let pwdObject = {
+            node: pwd,
+            regExp: /^[a-zA-Z]\w{5,19}$/,
+            flag: false
+        }
+        let rePwdObject = {
+            node: rePwd,
+            flag: false,
+            errorTips: '密码不一致'
+        }
+
+        phone.onblur = function () {
+            validate(phoneObject);
+        }
+
+        code.onblur = function () {
+            validate(codeObject);
+        }
+
+        pwd.onblur = function () {
+            validate(pwdObject);
+        }
+
+         rePwd.onblur = function () {
+            validate(rePwdObject);
+        }
+
+        function validate(param) {
+            let isOK;
+            if (param.regExp) {
+                isOK = param.regExp.test(param.node.value);
+            } else {
+                isOK = pwd.value == rePwd.value;
+            }
+            if (isOK) {
+                param.node.nextElementSibling.innerText = "格式正确";
+                param.node.nextElementSibling.style.color = "green";
+                param.flag = true;
+            } else {
+                param.node.nextElementSibling.innerText = param.errorTips || "格式不正确";
+                param.node.nextElementSibling.style.color = "red";
+                param.flag = false;
+            }
+        }
+
+       
+
+        registerBtn.onclick = function (e) {
+            if (phoneObject.flag && codeObject.flag && pwdObject.flag && rePwdObject.flag) {
+                alert("注册成功！");
+            } else {
+                e.preventDefault();
+                alert("注册失败！");
+            }
+        }
+
+    </script>
+
+</body>
+
+</html>

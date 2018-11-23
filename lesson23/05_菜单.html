@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        dl {
+            width: 150px;
+            text-align: center;
+            border: 1px solid cadetblue;
+        }
+
+        dt {
+            background-color: cadetblue;
+            line-height: 40px;
+            color: white;
+            cursor: pointer;
+        }
+
+        p {
+            line-height: 35px;
+        }
+
+        p:hover {
+            background-color: rgb(178, 216, 216);
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+    <dl>
+        <dt>商品菜单一</dt>
+        <dd>
+            <p>商品一</p>
+            <p>商品二</p>
+            <p>商品三</p>
+            <p>商品四</p>
+        </dd>
+    </dl>
+    <dl>
+        <dt>商品菜单二</dt>
+        <dd>
+            <p>商品一</p>
+            <p>商品二</p>
+            <p>商品三</p>
+            <p>商品四</p>
+        </dd>
+    </dl>
+    <dl>
+        <dt>商品菜单三</dt>
+        <dd>
+            <p>商品一</p>
+            <p>商品二</p>
+            <p>商品三</p>
+            <p>商品四</p>
+        </dd>
+    </dl>
+
+    <script src="../jquery-1.12.4.min.js"></script>
+    <script>
+       $("dt").click(function() {
+           $(this).next().slideToggle();
+       })
+    </script>
+</body>
+
+</html>

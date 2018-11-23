@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        .slider {
+            width: 1000px;
+            height: 358px;
+            border: 1px solid black;
+            margin: 0 auto;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .slider>img {
+            position: absolute;
+            top: 0;
+        }
+
+        .slider>span {
+            width: 49px;
+            height: 49px;
+            background: url("./images/shutter_prevBtn.png") top left no-repeat;
+            position: absolute;
+            top: calc(50% - 25px);
+            z-index: 1;
+        }
+
+        .leftBtn {
+            left: 20px;
+        }
+
+        .rightBtn {
+            right: 20px;
+            transform: rotate(180deg);
+        }
+
+        .circle {
+            list-style: none;
+            width: 80px;
+            display: flex;
+            justify-content: space-between;
+            position: absolute;
+            bottom: 10px;
+            left: calc(50% - 40px);
+        }
+
+        .circle>li {
+            width: 10px;
+            height: 10px;
+            border-radius: 5px;
+            background-color: white;
+        }
+
+        .circle>li:first-child {
+            background-color: gray;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="slider" id="slider">
+        <!-- 左右翻页按钮 -->
+        <span class="leftBtn" id="leftBtn"></span>
+        <span class="rightBtn" id="rightBtn"></span>
+        <!-- 轮播图片 -->
+        <img src="./images/shutter_1.jpg" style="left: 0px">
+        <img src="./images/shutter_2.jpg" style="left: 1000px">
+
+        <ul class="circle" id="circle">
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ul>
+    </div>
+    <script src="../jquery-1.12.4.min.js"></script>
+
+    <script>
+        let imgsAry = ['shutter_1.jpg', 'shutter_2.jpg', 'shutter_3.jpg', 'shutter_4.jpg'];
+        let index = 0;  // 作为当前图片的下标
+
+        // 控制图片的切换
+        let changeImg = setInterval(() => {
+            move();
+        }, 3000)
+
+        $("#slider").hover(
+            function () {
+                clearInterval(changeImg);
+            },
+            function () {
+                changeImg = setInterval(() => {
+                    move();
+                }, 3000)
+            }
+        );
+        // 点击左右翻页
+        $("#leftBtn").click(function () {
+            move(50);
+        })
+        $("#rightBtn").click(function () {
+            move(50, -1);
+        })
+        // 小圆点点击
+        $("#circle").on("click", "li", function() {
+            let i = $(this).index();   // i 是当前小圆点的下标
+            i--;
+            index = i;
+            move(50);
+        });
+
+
+        function move(speed = 20, dir = 1) {
+            let imgs = $("#slider>img");  // [img, img];
+            imgs.each(function () {
+                // 在所有图片移动之前，确定隐藏图片的位置，确定隐藏图片的路径
+                if ($(this).position().left != 0) {
+                    index += dir;
+                    if (dir == 1) {
+                        if (index > 3) {
+                            index = 0;
+                        }
+                    } else {
+                        if (index < 0) {
+                            index = 3;
+                        }
+                    }
+                    $(this).css("left", 1000 * dir).attr("src", `./images/${imgsAry[index]}`);
+                }
+            })
+            $("#circle>li").css("background-color", "white");
+            $("#circle>li").eq(index).css("background-color", "gray");
+
+            // 控制每一张图片的移动
+            let moveImg = setInterval(() => {
+                imgs.each(function () {
+                    let imgLeft = $(this).position().left;
+                    $(this).css("left", imgLeft - speed * dir);
+                    if ($(this).position().left == -1000 * dir) {  // 控制每一张图片之间的停顿
+                        clearInterval(moveImg);
+                    }
+                });
+            }, 30)
+        }
+
+    </script>
+</body>
+
+</html>

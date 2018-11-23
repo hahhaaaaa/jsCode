@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>小广告</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        .ad {
+            width: 200px;
+            height: 200px;
+            border: 1px solid black;
+            position: fixed;
+            right: 0;
+            bottom: 0;
+        }
+
+        .ad>p {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .closeBtn {
+            padding: 0 4px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="ad" id="ad">
+        <p>
+            <span class="countdown" id="countdown"></span>
+            <input type="button" value="x" class="closeBtn" id="closeBtn">
+        </p>
+    </div>
+
+    <script>
+        let ad = document.getElementById("ad");
+        let countdown = document.getElementById("countdown");
+        let closeBtn = document.getElementById("closeBtn");
+
+        let time = 5;
+        // 设置时间的初始值
+        countdown.innerText = time + "秒";
+
+
+        // 设置小广告的初始位置
+        let position = -ad.offsetHeight;
+        ad.style.bottom = position + "px";
+
+        // 上升小广告
+        let timer;
+        let move = setInterval(() => {
+            position++;
+            if (position == 0) {
+                clearInterval(move);
+                timer = setInterval(() => {
+                    time--;
+                    if (time == -1) {
+                        clearInterval(timer);
+                        ad.style.display = "none";
+                    }
+                    countdown.innerText = time + "秒";
+                }, 1000)
+            }
+            ad.style.bottom = position + "px";
+        }, 10)
+
+        // 关闭功能
+        closeBtn.onclick = function () {
+            ad.style.display = "none";
+            clearInterval(timer);
+        }
+    </script>
+
+</body>
+
+</html>

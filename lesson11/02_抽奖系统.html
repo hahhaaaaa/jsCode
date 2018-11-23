@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        header h2 {
+            width: 400px;
+            text-align: center;
+            padding: 20px 0;
+            background-color: brown;
+            color: white;
+            font-weight: bold;
+            margin: 20px auto;
+        }
+
+        .selectedName {
+            width: 800px;
+            height: 150px;
+            line-height: 150px;
+            border-radius: 10px;
+            border: 1px solid #ccc;
+            margin: 0 auto;
+            padding: 20px 0;
+            text-align: center;
+            font-size: 100px;
+        }
+
+        .btns {
+            text-align: center;
+            padding: 20px 0;
+        }
+
+        .btns input {
+            padding: 10px 20px;
+            border: 1px solid #ccc;
+            background-color: #eee;
+            border-radius: 10px;
+            margin: 0 20px;
+        }
+
+        .winnerList {
+            display: flex;
+            width: 600px;
+            margin: 20px auto;
+            justify-content: space-between;
+        }
+
+        .winner {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            text-align: center;
+            border: 10px solid #ccc;
+            background-color: cadetblue;
+        }
+
+        .winner p {
+            margin: 20px 0;
+        }
+
+        .winner h3 {
+            font-size: 34px;
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h2>中奖姓名</h2>
+    </header>
+    <div class="draw">
+        <h1 class="selectedName" id="selectedName"></h1>
+        <div class="btns">
+            <input type="button" value="开始" id="startBtn">
+            <input type="button" value="停止" id="stopBtn">
+        </div>
+    </div>
+    <div class="winnerList">
+        <div class="winner">
+            <p>一等奖</p>
+            <h3>ONE</h3>
+        </div>
+        <div class="winner">
+            <p>二等奖</p>
+            <h3>TWO</h3>
+        </div>
+        <div class="winner">
+            <p>三等奖</p>
+            <h3>THREE</h3>
+        </div>
+    </div>
+    <script src="../tools.js"></script>
+    <script>
+        let list = ['吴冰', '谢旭红', '任双凤', '吴娟', '王江', '陈闯', '钟丽华', '宇银川',
+            '李飞鹏', '李浩', '李飔钒', '王武龙', '谢正恒', '梅雪娇', '胡丹凤', '滕俊杰',
+            '苏春阳', '张勇', '李强', '谢思', '吴官耀', '梁银', '丁琦', '雷丹', '刘友',
+            '邓亚琴', '蔡婷婷', '朱衍霖', '袁静', '刘弯弯', '江岚'];
+
+        let defaultList = ['袁静', '刘弯弯', '江岚'];
+
+        let flag = false;  // 黑幕状态：false 不黑幕
+
+
+        // 名字播放
+        let selectedName = document.getElementById("selectedName"); // h1
+        selectedName.onclick = function() {
+            flag = true;
+        }
+
+        let startBtn = document.getElementById("startBtn");
+        let changeName;
+        let index;
+        startBtn.onclick = function () {
+            changeName = setInterval(() => {
+                index = random(list.length - 1);
+                selectedName.innerText = list[index];
+            }, 100)
+            // startBtn.disabled = true;
+        }
+
+        // 暂停功能
+        let stopBtn = document.getElementById("stopBtn");
+        let h3s = document.querySelectorAll(".winner > h3");
+        let winnerIndex =  2;
+        stopBtn.onclick = function() {
+            clearInterval(changeName);
+            if(flag) {
+                selectedName.innerText = defaultList[winnerIndex];
+            }
+            // 显示中奖名单
+            let name = selectedName.innerText;   //暂停时的名字
+            h3s[winnerIndex].innerText = name;
+            winnerIndex--;
+
+            list.splice(index, 1);
+        }
+
+        
+
+
+    </script>
+</body>
+
+</html>

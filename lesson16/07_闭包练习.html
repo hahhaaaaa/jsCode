@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <ul>
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+        <li>4</li>
+    </ul>
+
+    <script>
+        let lis = document.querySelectorAll("ul li");
+
+        for (var i = 0; i < lis.length; i++) {
+            (function (i) {
+                lis[i].onclick = function () {
+                    console.log(i);
+                }
+            })(i);
+        }
+
+        // 垃圾回收机制
+
+        // 闭包缺点：滥用闭包会造成内存浪费。
+        // 闭包优点：扩大了局部变量的作用范围。避免了变量污染。
+
+    </script>
+</body>
+
+</html>

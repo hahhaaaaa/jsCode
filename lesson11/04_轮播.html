@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        #slider {
+            width: 1000px;
+            height: 358px;
+            border: 1px solid grey;
+            background: url("./images/shutter_1.jpg") no-repeat;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="slider"></div>
+
+    <script>
+        let imgsArr = ["shutter_1.jpg", "shutter_2.jpg", "shutter_3.jpg", "shutter_4.jpg"];
+
+        let slider = document.getElementById("slider");
+        let i = 0;
+        setInterval(() => {
+            i++;
+            if(i >= imgsArr.length) {
+                i = 0;
+            }
+            slider.style.background = `url("./images/${imgsArr[i]}") no-repeat`;
+
+        }, 1000)
+
+    </script>
+</body>
+
+</html>

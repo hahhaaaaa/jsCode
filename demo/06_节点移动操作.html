@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .wrap {
+            display: flex;
+        }
+
+        select {
+            width: 100px;
+            height: 150px;
+        }
+
+        .btns {
+            display: flex;
+            width: 50px;
+            flex-direction: column;
+            justify-content: space-around;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrap">
+        <select name="" id="leftSelect" multiple>
+            <option value="">张飞</option>
+            <option value="">刘备</option>
+            <option value="">曹操</option>
+            <option value="">诸葛亮</option>
+            <option value="">许褚</option>
+            <option value="">关羽</option>
+        </select>
+        <div class="btns">
+            <input type="button" value="右移" id="toRight">
+            <input type="button" value="全右" id="allRight">
+            <input type="button" value="左移" id="toLeft">
+            <input type="button" value="全左" id="allLeft">
+            <input type="button" value="上移" id="toUp">
+            <input type="button" value="下移" id="toDown">
+        </div>
+        <select name="" id="rightSelect" multiple></select>
+    </div>
+
+    <script>
+        let leftSelect = document.getElementById("leftSelect");
+        let rightSelect = document.getElementById("rightSelect");
+        let toRight = document.getElementById("toRight");
+        let allRight = document.getElementById("allRight");
+        let toLeft = document.getElementById("toLeft");
+        let allLeft = document.getElementById("allLeft");
+        let toUp = document.getElementById("toUp");
+        let toDown = document.getElementById("toDown");
+
+        // let options = document.querySelectorAll("#leftSelect > option");
+
+        allRight.onclick = function () {
+            // rightSelect.innerHTML = leftSelect.innerHTML;
+            // leftSelect.innerHTML = "";
+            let options = document.querySelectorAll("#leftSelect > option");
+            for (let item of options) {
+                rightSelect.appendChild(item);
+            }
+        }
+
+        toRight.onclick = function () {
+            let options = document.querySelectorAll("#leftSelect > option");
+            for (let item of options) {
+                if (item.selected) {
+                    rightSelect.appendChild(item);
+                }
+            }
+        }
+
+        toUp.onclick = function () {
+            let options = document.querySelectorAll("#leftSelect > option");
+            for (let i = 0; i < options.length; i++) {
+                if (!options[0].selected) {  // 第一个 option 未选中
+                    if (options[i].selected) {
+                        leftSelect.insertBefore(options[i], options[i].previousElementSibling);
+                    }
+                }
+            }
+        }
+
+        toDown.onclick = function () {
+            let options = document.querySelectorAll("#leftSelect > option");
+            for (let i = options.length - 1; i >= 0; i--) {
+                if (!options[options.length - 1].selected) {
+                    if (options[i].selected) {
+                        leftSelect.insertBefore(options[i].nextElementSibling, options[i]);
+                    }
+                }
+            }
+        }
+
+
+    </script>
+
+</body>
+
+</html>

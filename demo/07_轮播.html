@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        #slider {
+            width: 1000px;
+            height: 358px;
+            background: url("./images/shutter_1.jpg") no-repeat;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        #arrowLeft,
+        #arrowRight {
+            width: 49px;
+            height: 49px;
+            background: url("./images/shutter_prevBtn.png") no-repeat;
+            margin: 0 20px;
+            cursor: pointer;
+        }
+
+        #arrowLeft:hover,
+        #arrowRight:hover {
+            background-position: center bottom;
+        }
+
+        #arrowRight {
+            transform: rotate(180deg);
+        }
+
+        #circle {
+            list-style: none;
+            overflow: hidden;
+            align-self: flex-end;
+        }
+
+        #circle li {
+            float: left;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: white;
+            margin: 10px 5px;
+            cursor: pointer;
+        }
+
+        #circle li:first-child {
+            background-color: gray;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="slider">
+        <div id="arrowLeft"></div>
+        <ul id="circle">
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ul>
+        <div id="arrowRight"></div>
+    </div>
+
+    <script>
+        let imgsArr = ["shutter_1.jpg", "shutter_2.jpg", "shutter_3.jpg", "shutter_4.jpg"];
+        let slider = document.getElementById("slider");
+        let arrowRight = document.getElementById("arrowRight");
+        let arrowLeft = document.getElementById("arrowLeft");
+        let lis = document.querySelectorAll("#circle li");
+
+        let i = 0;
+        let changeImg = setInterval(changeRight, 1000)
+
+
+        slider.onmouseenter = function () {
+            clearInterval(changeImg);
+        }
+        slider.onmouseleave = function () {
+            changeImg = setInterval(changeRight, 1000)
+        }
+
+        arrowRight.onclick = function () {
+            changeRight();
+        }
+        arrowLeft.onclick = function () {
+            changeLeft();
+        }
+
+        for(let j = 0; j < lis.length; j++) {
+            lis[j].onclick = function() {
+                i = j;
+                slider.style.background = `url("./images/${imgsArr[i]}") no-repeat`;
+                changeColor();
+            }
+        }
+
+        function changeRight() {
+            i++;
+            if (i == imgsArr.length) {
+                i = 0;
+            }
+            slider.style.background = `url("./images/${imgsArr[i]}") no-repeat`;
+            changeColor();
+        }
+
+        function changeLeft() {
+            i--;
+            if (i == -1) {
+                i = imgsArr.length - 1;
+            }
+            slider.style.background = `url("./images/${imgsArr[i]}") no-repeat`;
+            changeColor();
+        }
+
+        function changeColor() {
+            for(let item of lis) {
+                item.style.backgroundColor = "white";
+                
+            }
+            lis[i].style.backgroundColor = "gray";
+        }
+
+    </script>
+</body>
+
+</html>

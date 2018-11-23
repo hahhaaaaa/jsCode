@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        #cvs {
+            background-color: #eee;
+        }
+    </style>
+</head>
+
+<body>
+    <canvas width="600" height="600" id="cvs"></canvas>
+
+    <script>
+        let cvs = document.getElementById("cvs");
+        let ctx = cvs.getContext("2d");
+
+
+        ctx.translate(300, 300);
+
+        setInterval(() => {
+            ctx.clearRect(-300, -300, cvs.width, cvs.height);
+            ctx.rotate(1 * Math.PI / 180);
+            ctx.fillRect(-50, -50, 100, 100);
+        }, 10)
+
+
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1>登录</h1>
+    <input type="text" placeholder="账号" id="username">
+    <input type="text" placeholder="密码" id="password">
+    <input type="button" value="登录" id="loginBtn">
+    <script src="../tools.js"></script>
+    <script>
+        let loginBtn = document.getElementById("loginBtn");
+        let username = document.getElementById("username");
+        let password = document.getElementById("password");
+
+        loginBtn.onclick = function () {
+            let users = getStorage("users");
+            for(let item of users) {
+                if(item.username == username.value && item.password == password.value) {
+                    console.log("登录成功！");
+                    return;
+                }
+            }
+            console.log("登录失败！");
+        }
+    </script>
+</body>
+
+</html>

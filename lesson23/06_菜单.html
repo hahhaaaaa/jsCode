@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        ul {
+            list-style: none;
+            width: 100px;
+            position: fixed;
+            right: 0;
+        }
+
+        li {
+            width: 70px;
+            border-left: 10px solid black;
+            line-height: 50px;
+            background-color: brown;
+            margin-bottom: 1px;
+            padding: 0 10px;
+            position: relative;
+            left: 90px;
+        }
+
+        a {
+            color: white;
+        }
+    </style>
+</head>
+
+
+
+<body>
+    <ul>
+        <li>
+            <a href="#">菜单一</a>
+        </li>
+        <li>
+            <a href="#">菜单二</a>
+        </li>
+        <li>
+            <a href="#">菜单三</a>
+        </li>
+        <li class="menu">
+            <a href="#">菜单四</a>
+        </li>
+        <li>
+            <a href="#">菜单五</a>
+        </li>
+        <li>
+            <a href="#">菜单六</a>
+        </li>
+        <li>
+            <a href="#">菜单七</a>
+        </li>
+        <li>
+            <a href="#">菜单八</a>
+        </li>
+    </ul>
+
+    <script src="../jquery-1.12.4.min.js"></script>
+    <script>
+        // $("ul").hover(
+        //     function () {
+        //         $("ul li").each(function (i) {
+        //             setTimeout(() => {
+        //                 $(this).animate({
+        //                     left: 0
+        //                 }, 500)
+        //             }, 50 * i);
+        //         });
+        //     },
+        //     function () {
+        //         $("ul li").each(function (i) {
+        //             setTimeout(() => {
+        //                 $(this).animate({
+        //                     left: '90px'
+        //                 }, 500, function() {
+        //                     $(this).stop(true, true);
+        //                 })
+        //             }, 50 * i);
+        //         });
+        //     }
+        // );
+    //    console.log( $(".menu").index());
+       
+
+    </script>
+</body>
+
+</html>

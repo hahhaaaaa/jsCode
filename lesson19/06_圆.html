@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        #cvs {
+            background-color: #eee;
+        }
+    
+    </style>
+</head>
+<body>
+    <canvas width="600" height="600" id="cvs"></canvas>
+
+    <script>
+        let cvs = document.getElementById("cvs");
+        let ctx = cvs.getContext("2d");
+
+        ctx.moveTo(300, 300);
+        ctx.arc(300, 300, 100, 0, 90 * Math.PI / 180);
+        ctx.closePath();
+        ctx.stroke();
+       
+        // 弧度 = 角度 * Math.PI / 180
+    </script>
+    
+</body>
+</html>

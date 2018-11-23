@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        .container {
+            width: 1000px;
+            height: 800px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .startBtn {
+            width: 100px;
+            height: 100px;
+            text-align: center;
+            line-height: 100px;
+            border-radius: 50%;
+            background-color: cadetblue;
+            border: 10px solid #ccc;
+            color: white;
+            font-size: 28px;
+            font-weight: bold;
+            position: absolute;
+            left: calc(50% - 60px);
+            top: 230px;
+            cursor: pointer;
+        }
+
+        .player {
+            width: 100px;
+            height: 50px;
+            text-align: center;
+            line-height: 50px;
+            border-radius: 20px;
+            background-color: orange;
+            border: 5px solid #ccc;
+            color: white;
+            font-size: 20px;
+        }
+
+        .wrap1,
+        .wrap3 {
+            width: 250px;
+            height: 630px;
+            position: absolute;
+            top: 0;
+        }
+
+        .wrap3 {
+            right: 0;
+        }
+
+        .wrap2 {
+            width: 585px;
+            height: 250px;
+            position: absolute;
+            left: calc(50% - 300px);
+            bottom: 0;
+        }
+
+        .player1,
+        .player3 {
+            position: absolute;
+            top: calc(50% - 55px);
+        }
+
+        .player1 {
+            right: 0;
+        }
+
+        .player2 {
+            position: absolute;
+            top: 0;
+            left: calc(50% - 55px);
+        }
+
+        .poker {
+            position: absolute;
+            display: flex;
+            list-style: none;
+        }
+
+        .wrap2 .poker {
+            width: 585px;
+            height: 150px;
+            bottom: 0;
+        }
+
+        .wrap1 .poker,
+        .wrap3 .poker {
+            height: 630px;
+            width: 105px;
+            flex-direction: column;
+        }
+
+        .wrap3 .poker {
+            right: 0;
+        }
+
+        .wrap2 .poker li {
+            width: 30px;
+        }
+
+        .wrap1 .poker li,
+        .wrap3 .poker li {
+            height: 30px;
+        }
+
+        .poker0 {
+            position: absolute;
+            top: 0;
+            left: calc(50% - 157px);
+            width: 315px;
+            height: 150px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="startBtn" id="startBtn">开始</div>
+        <ul class="poker poker0" id="poker0"></ul>
+        <div class="wrap1">
+            <ul class="poker" id="poker1">
+            </ul>
+            <div class="player player1">玩家一</div>
+        </div>
+        <div class="wrap2">
+            <ul class="poker" id="poker2"></ul>
+            <div class="player player2">玩家二</div>
+        </div>
+        <div class="wrap3">
+            <ul class="poker" id="poker3"></ul>
+            <div class="player player3">玩家三</div>
+        </div>
+    </div>
+    <script src="../tools.js"></script>
+    <script>
+        let poker0 = document.getElementById("poker0");
+        let poker1 = document.getElementById("poker1");
+        let poker2 = document.getElementById("poker2");
+        let poker3 = document.getElementById("poker3");
+        let startBtn = document.getElementById("startBtn");
+        let pokers;
+        startBtn.onclick = function () {
+            pokers = [];  // 存放一整副牌
+            makePokers();   // 生成一整副牌
+            let player1 = issuePoker();
+            let player2 = issuePoker();
+            let player3 = issuePoker();
+            render(pokers, poker0);
+            render(player1, poker1);
+            render(player2, poker2);
+            render(player3, poker3);
+        }
+
+        function render(arr, poker) {
+            let newArr = arr.map(item => {
+                return `<li><img src="./images/${item.url}"></li>`
+            });
+            poker.innerHTML = newArr.join("");
+        }
+
+
+        function issuePoker() {
+            let playerPoker = [];
+            for (let i = 0; i < 17; i++) {
+                let index = random(pokers.length - 1);
+                let p = pokers[index];
+                playerPoker.push(p);
+                pokers.splice(index, 1);
+            }
+            playerPoker.sort((a, b) => a.number == b.number ? b.flower - a.flower : a.number - b.number);
+            return playerPoker;
+        }
+
+
+        function makePokers() {
+            for (let i = 3; i <= 17; i++) {
+                for (let j = 1; j <= 4; j++) {
+                    if (j > 1 && i > 15) {
+                        break;
+                    }
+                    pokers.push({
+                        url: `${i}_${j}.jpg`,
+                        number: i,
+                        flower: j
+                    });
+                }
+            }
+        }
+
+
+
+    </script>
+</body>
+
+</html>

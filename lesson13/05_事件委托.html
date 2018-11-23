@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+    <ul style="border: 1px solid red">
+        <li>111</li>
+        <li>222</li>
+        <li>333</li>
+    </ul>
+
+    <script>
+        // 事件委托：子元素将事件委托给父级（就是将子元素的事件绑定在父元素身上）
+
+        // let lis = document.querySelectorAll("ul li");
+        // for(let item of lis) {
+        //     item.onclick = function() {
+        //         console.log(item.innerText);
+        //     }
+        // }
+
+
+        let ulNode = document.querySelector("ul");
+
+        ulNode.onclick = function(e) {
+            if(e.target.nodeName == "LI") {
+                console.log(e.target.innerText);
+            }
+        }
+    </script>
+</body>
+
+</html>

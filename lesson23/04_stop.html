@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        #block {
+            width: 100px;
+            height: 100px;
+            background-color: aquamarine;
+            position: relative;
+            top: 0;
+            left: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="block"></div>
+    <input type="button" value="go" id="goBtn">
+    <input type="button" value="stop" id="stopBtn">
+    <script src="../jquery-1.12.4.min.js"></script>
+
+    <script>
+        $("#goBtn").click(function () {
+            $("#block").animate({
+                left: '500px'
+            }, 2000)
+
+            $("#block").animate({
+                top: '500px'
+            }, 2000)
+        })
+
+        $("#stopBtn").click(function () {
+            // $("#block").stop(true, true); // 清空动画队列，直接到当前动画最终状态。
+            // $("#block").stop(false, true); // 直接到当前动画最终状态，立即执行下一个动画。
+            // $("#block").stop(false, false); // 在当前状态下停止，立即执行下一个动画。
+            // $("#block").stop(true, false); // 在当前状态下结束所有动画。
+        })
+    </script>
+</body>
+
+</html>

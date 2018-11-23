@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        .completed {
+            color: red;
+            text-decoration: line-through;
+        }
+    </style>
+</head>
+
+<body>
+    <input type="text" id="content">
+    <input type="button" value="添加" id="addList">
+
+    <ul id="list">
+        <li>HTML</li>
+        <li>CSS</li>
+        <li>JavaScript</li>
+    </ul>
+
+    <script>
+        // 添加功能
+        let addList = document.getElementById("addList");
+        let content = document.getElementById("content");
+        let list = document.getElementById("list");
+        addList.onclick = function () {
+            let text = content.value;
+            let li = document.createElement("li");
+            li.innerText = text;
+            list.appendChild(li);
+            content.value = "";
+            // change();
+        }
+
+        // change();
+
+        // 点击功能
+        // function change() {
+        let lis = document.querySelectorAll("#list > li");
+        for (let i = 0; i < lis.length; i++) {
+            lis[i].onclick = function () {
+                if (lis[i].className) {
+                    lis[i].className = "";
+                } else {
+                    lis[i].className = "completed";
+                }
+            }
+        }
+        // }
+
+
+
+    </script>
+</body>
+
+</html>

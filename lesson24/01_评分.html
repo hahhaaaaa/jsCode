@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+    <div>
+        <img src="./images/empty.png" alt="0">
+        <img src="./images/empty.png" alt="1">
+        <img src="./images/empty.png" alt="2">
+        <img src="./images/empty.png" alt="3">
+        <img src="./images/empty.png" alt="4">
+        <span id="prompt"></span>
+    </div>
+
+    <script src="../jquery-1.12.4.min.js"></script>
+    <script>
+        let index = -1;  // 保存当前选中的星星的下标
+        $("div>img")
+            .hover(
+                function () {
+                    $("div>img").attr("src", "./images/empty.png");
+                    $(this).attr("src", "./images/shining.png");
+                    $(this).prevAll().attr("src", "./images/shining.png");
+                    showText($(this).index());
+                },
+                function () { // 鼠标离开时触发
+                    $("div>img").attr("src", "./images/empty.png");
+                    $("#prompt").text("");
+                    if (index >= 0) {
+                        $(`div>img:eq(${index}),div>img:lt(${index})`).attr("src", "./images/shining.png");
+                        showText(index);
+                    }
+
+                }
+            )
+            .click(function () {
+                $(this).attr("src", "./images/shining.png");
+                $(this).prevAll().attr("src", "./images/shining.png");
+                index = $(this).index();
+                showText(index);
+            })
+
+
+        function showText(level) {
+            switch (level) {
+                case 0: $("#prompt").text("很差"); break;
+                case 1: $("#prompt").text("差"); break;
+                case 2: $("#prompt").text("一般"); break;
+                case 3: $("#prompt").text("较好"); break;
+                case 4: $("#prompt").text("很好"); break;
+            }
+        }
+
+
+    </script>
+</body>
+
+</html>

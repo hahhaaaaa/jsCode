@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title></title>
+</head>
+<body>
+    
+    <script>
+        // 1. cookie 
+        // 2. localStorage
+        // 3. sessionStorage
+        
+        // 三者的区别：
+        // 1. 数据存储时间：
+            // cookie：在服务端，cookie 的数据存储时间可以手动设置；
+            //         在浏览器端，cookie 的数据存储时间默认是浏览器关闭后失效；
+            // localStorage：除非手动删除，否则永久保存；
+            // sessionStorage：仅在当前窗口关闭前有效；
+        // 2. 存储空间大小：
+            // cookie：4k 左右
+            // localStorage 和 sessionStorage：5M 左右
+        // 3. 与服务端通信：
+            // cookie：每一次跟服务端通信都会携带 cookie；
+            // localStorage 和 sessionStorage：仅在浏览器端保存，不参与服务端的通信；
+
+        // // 新增：
+        // localStorage.setItem("username", "zhangsan");
+        // // 修改：
+        // localStorage.setItem("username", "lisi");
+        // // 获取：
+        // console.log(localStorage.getItem("username"));
+        // // 删除
+        // localStorage.removeItem("username");
+        // // 清空
+        // localStorage.clear();      
+        
+        // localStorage.username = "zhangsan";
+        // console.log(localStorage.username);
+
+        // localStorage.password = 123123;
+        // console.log(typeof localStorage.password);
+
+
+        localStorage.users = JSON.stringify([
+            {username:'zhangsan', password:'123'},
+            {username:'lisi', password:'000'}
+        ])
+        console.log(localStorage.users)
+
+    </script>
+</body>
+</html>

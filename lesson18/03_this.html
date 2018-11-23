@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // console.log(this); 
+
+        // function foo() {
+        //     console.log(this);
+        // }
+        // foo();
+
+        // let student = {
+        //     name: 'zhangsan',
+        //     foo: function() {
+        //         console.log(this);
+        //     }
+        // }
+        // student.foo();
+
+        // div.onclick = function() {
+        //     console.log(this);
+        // }
+        // var name = "lisi";
+        // let student = {
+        //     name: 'zhangsan',
+        //     sayName: function() {
+        //         console.log(this);
+
+        //         let foo = () => {
+        //             console.log(this);
+        //         }
+        //         foo();
+
+        //     }
+        // }
+        // student.sayName();
+
+        // 1. 全局范围内的 this，永远指向全局对象（浏览器中全局对象为window）
+        // 2. 普通函数中的 this，指向全局对象。
+        // 3. 对象方法中的 this，指向调用该方法的对象。
+        // 4. 事件中的 this，指向绑定事件的元素。   
+        // 5. 构造函数中的 this，指向 new 出来的实例对象。
+        // 6. 箭头函数中没有 this，如果在箭头函数中使用 this，则使用的是继承于父级的 this。
+
+        // 更改 this 的指向
+        // call/apply/bind
+
+        // let student1 = {
+        //     name: 'zhangsan',
+        //     sayName(a) {
+        //         console.log(this.name, a);
+        //     }
+        // }
+
+        // let student2 = {
+        //     name: 'lisi'
+        // }
+
+        // // student1.sayName(100);
+        // student1.sayName.call(student2, 100, 200, 300);
+        // student1.sayName.apply(student2, [100, 200, 300]);
+        // student1.sayName.bind(student2)(100);
+
+    </script>
+</body>
+
+</html>

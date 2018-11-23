@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        #box {
+            background-color: red;
+            width: 100px;
+            height: 100px;
+            padding: 5px;
+            border: 1px solid black;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="box"></div>
+
+    <script>
+        let box = document.getElementById("box");
+        // 1.操作内嵌样式
+        // box.style.width = "100px";
+        // box.style.height = "100px";
+        // box.style.border = "1px solid black";
+
+        // console.log(box.style.width);
+
+        // // 2.操作样式表样式（内部、外部）
+        // // console.log(document.styleSheets[0].rules[0].style.backgroundColor);
+
+        // // 3.获取最终样式
+        // console.log(getComputedStyle(box).backgroundColor);
+
+
+
+        // 快速获取样式
+        // 1. 获取元素的实际尺寸
+        console.log(box.clientWidth, box.clientHeight); // content + padding
+        console.log(box.offsetWidth, box.offsetHeight); // content + padding + border
+
+        // 2. 获取元素位置：
+        // 获取元素相对于定位父级的位置，如果所有父级都没有定位属性，
+        // 则获取元素相对于文档显示区的位置。
+        console.log(box.offsetLeft, box.offsetTop);
+    </script>
+</body>
+
+</html>

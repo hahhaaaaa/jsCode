@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+
+        class System {
+            constructor() {
+                this.users = [
+                    { username: 'zhangsan', password: '123' },
+                    { username: 'lisi', password: '000' },
+                    { username: '1', password: '1' }
+                ];
+            }
+            login() {
+                let chance = 3;
+                while (chance > 0) {
+                    let username = prompt("请输入账号：");
+                    let password = prompt("请输入密码");
+                    for (let item of this.users) {
+                        if (item.username == username && item.password == password) {
+                            alert("登录成功！");
+                            return;
+                        }
+                    }
+                    chance--;
+                    if (chance == 0) {
+                        alert("登录失败！再见！");
+                    } else {
+                        alert(`账号或密码错误，你还有${chance}次机会，请重新登录。`);
+                    }
+                }
+            }
+            register() {
+                while (true) {
+                    let username = prompt("请输入注册账号：");
+                    if (this.users.some(item => item.username == username)) {
+                        alert("该账号已存在，请重新输入。");
+                    } else {
+                        let password = prompt("请输入注册密码：");
+                        this.users.push({username, password});
+                        alert("注册成功！");
+                        this.login();
+                        return;
+                    }
+                }
+            }
+        }
+
+        let s = new System();
+        s.register();
+
+
+
+    </script>
+</body>
+
+</html>

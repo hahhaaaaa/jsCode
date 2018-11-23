@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        #box {
+            width: 200px;
+            height: 200px;
+            background-color: orange;
+        }
+
+        #block {
+            width: 100px;
+            height: 100px;
+            background-color: red;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- <div id="box"></div>
+    <input type="button" id="btn" value="点击"> -->
+
+    <button id="go"> Run</button>
+    <div id="block">Hello!</div>
+    <script src="../jquery-1.12.4.min.js"></script>
+
+    <script>
+        // $("#box").hide();
+        // $("#box").show();
+        // $("#btn").click(function () {
+        //     $("#box").fadeOut();
+        // })
+
+        $("#go").click(function () {
+            $("#block").animate({
+                width: '500px',
+                height: '500px',
+                backgroundColor: 'green'
+            }, 1000, function () {
+                console.log("hello");
+            });
+        });
+
+    </script>
+</body>
+
+</html>
