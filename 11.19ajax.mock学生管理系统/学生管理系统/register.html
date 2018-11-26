@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>注册验证</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        h1.title {
+            margin: 30px;
+        }
+
+        .input-wrap {
+            display: flex;
+            align-items: center;
+        }
+
+        .input-wrap>label {
+            display: inline-block;
+            width: 80px;
+            text-align: right;
+        }
+
+        .input-wrap>input {
+            border: 1px solid #ccc;
+            width: 198px;
+            height: 30px;
+        }
+
+        .prompt {
+            margin-left: 10px;
+        }
+
+        .temp {
+            height: 30px;
+            margin-left: 80px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1 class="title">注册</h1>
+    <form class="registerForm">
+        <div class="input-wrap">
+            <label for="phone">手机号：</label>
+            <input type="text" id="phone">
+            <span class="prompt"></span>
+        </div>
+        <div class="temp"></div>
+        <div class="input-wrap">
+            <label for="code">验证码：</label>
+            <input type="text" id="code">
+            <span class="prompt"></span>
+        </div>
+        <div class="temp"></div>
+        <div class="input-wrap">
+            <label for="pwd">密码：</label>
+            <input type="text" id="pwd">
+            <span class="prompt"></span>
+        </div>
+        <div class="temp"></div>
+        <div class="input-wrap">
+            <label for="rePwd">确认密码：</label>
+            <input type="text" id="rePwd">
+            <span class="prompt"></span>
+        </div>
+        <div class="temp"></div>
+        <div class="input-wrap">
+            <label for=""></label>
+            <input type="submit" id="registerBtn">
+        </div>
+    </form>
+    <script src="./js/mock-min.js"></script>
+    <script src="./js/tools.js"></script>
+    <script src="./js/server.js"></script>
+    <script>
+        // 注册功能
+        let registerBtn = document.getElementById("registerBtn");
+        let phone = document.getElementById("phone");
+        let pwd = document.getElementById("pwd");
+        registerBtn.onclick = function (e) {
+            e.preventDefault();
+            ajax({
+                type: 'post',
+                url: '/register',
+                data: `phone=${phone.value}&password=${pwd.value}`,
+                success(msg) {
+                    if(msg){
+                        alert("注册成功！");
+                        location.href = "./login.html";
+                    }
+                }
+            });
+        }
+        // 验证手机号是否重复
+        phone.onblur = function() {
+            ajax({
+                type: 'post',
+                url: '/isRepeat',
+                data: `phone=${phone.value}`,
+                success(msg){
+                    if(msg) {
+                        phone.nextElementSibling.innerText = "手机号重复";
+                    } else {
+                        phone.nextElementSibling.innerText = "手机号可用";
+                    }
+                }
+            })
+        }
+
+    </script>
+</body>
+
+</html>

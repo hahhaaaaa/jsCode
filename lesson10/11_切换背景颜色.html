@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        div {
+            width: 200px;
+            height: 200px;
+            border: 1px solid black;
+        }
+
+        .bgColor {
+            background-color: red;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="bgColor"></div>
+
+    <script>
+        let colorArr = ["red", "blue", "green", "yellow"];
+
+        let div = document.querySelector("div");
+        let i = 0;
+        div.onclick = function () {
+            i++;
+            if (i >= colorArr.length) {
+                i = 0;
+            }
+            div.style = "background-color:" + colorArr[i];
+        }
+
+
+
+        // div.onclick = function () {
+        //     if (div.className) {
+        //         div.className = "";
+        //     } else {
+        //         div.className = "bgColor";
+        //     }
+        // }
+    </script>
+</body>
+
+</html>

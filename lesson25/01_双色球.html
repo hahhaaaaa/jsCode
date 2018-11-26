@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        .select-number {
+            width: 1000px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .balls {
+            border: 1px solid black;
+            padding: 10px;
+            overflow: hidden;
+        }
+
+        .balls li {
+            list-style-type: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 1px solid #ccc;
+            text-align: center;
+            line-height: 40px;
+            float: left;
+            margin: 5px;
+            cursor: pointer;
+        }
+
+        .red-number {
+            width: 600px;
+        }
+
+        .blue-number {
+            width: 400px;
+        }
+
+        .red-number p,
+        .blue-number p {
+            text-align: center;
+            font-size: 24px;
+            padding: 30px 0;
+        }
+
+        .select-red .selected {
+            background-color: red;
+            color: white;
+        }
+
+        .select-blue .selected {
+            background-color: blue;
+            color: white;
+        }
+
+        .confirm {
+            display: block;
+            padding: 10px 20px;
+            border-radius: 10px;
+            border: 1px solid #aaa;
+            font-size: 16px;
+            margin: 30px auto;
+        }
+
+        .select-show {
+            width: 550px;
+            margin: 20px auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .select-show .balls {
+            border: none;
+            padding: 0;
+            width: 400px;
+            height: 54px;
+        }
+
+        .select-show .red-ball {
+            border: 2px solid red;
+            color: red;
+        }
+
+        .select-show .blue-ball {
+            border: 2px solid blue;
+            color: blue;
+        }
+
+        .prompt {
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="select-number" id="selectBalls">
+        <div class="red-number">
+            <p>红球区</p>
+            <ul class="balls select-red" id="selectRed">
+                <li>1</li>
+                <li>2</li>
+                <li>3</li>
+                <li>4</li>
+                <li>5</li>
+                <li>6</li>
+                <li>7</li>
+                <li>8</li>
+                <li>9</li>
+                <li>10</li>
+                <li>11</li>
+                <li>12</li>
+                <li>13</li>
+                <li>14</li>
+                <li>15</li>
+                <li>16</li>
+                <li>17</li>
+                <li>18</li>
+                <li>19</li>
+                <li>20</li>
+                <li>21</li>
+                <li>22</li>
+                <li>23</li>
+                <li>24</li>
+                <li>25</li>
+                <li>26</li>
+                <li>27</li>
+                <li>28</li>
+                <li>29</li>
+                <li>30</li>
+                <li>31</li>
+                <li>32</li>
+                <li>33</li>
+            </ul>
+        </div>
+        <div class="blue-number">
+            <p>蓝球区</p>
+            <ul class="balls select-blue" id="selectBlue">
+                <li>1</li>
+                <li>2</li>
+                <li>3</li>
+                <li>4</li>
+                <li>5</li>
+                <li>6</li>
+                <li>7</li>
+                <li>8</li>
+                <li>9</li>
+                <li>10</li>
+                <li>11</li>
+                <li>12</li>
+                <li>13</li>
+                <li>14</li>
+                <li>15</li>
+                <li>16</li>
+            </ul>
+        </div>
+    </div>
+
+    <input type="button" value="确认选号" class="confirm" id="confirm">
+
+    <div class="select-show">
+        <p>用户选择号码</p>
+        <ul class="balls" id="userShow">
+        </ul>
+    </div>
+    <div class="select-show">
+        <p>今日开奖号码</p>
+        <ul class="balls" id="systemShow">
+        </ul>
+    </div>
+
+    <h1 class="prompt" id="prompt"></h1>
+
+    <script src="../lodash.min.js"></script>
+    <script src="../jquery-1.12.4.min.js"></script>
+
+    <script>
+        $("#selectRed>li,#selectBlue>li").click(function () {
+            $(this).toggleClass("selected");
+        })
+        // 确认选号
+        $("#confirm").click(function () {
+            // 获取到用户选中的七个号码
+            let userBalls = _.filter($("#selectRed>li,#selectBlue>li"), item => $(item).hasClass("selected"));
+            userBalls = _.map(userBalls, item => $(item).text());
+            render(userBalls, $("#userShow"));
+            let systemBalls = makeSystem();
+            render(systemBalls, $("#systemShow"));
+            judgement(userBalls, systemBalls);
+        })
+
+        function makeSystem() {
+            let systemBalls = [];
+            while (true) {
+                systemBalls.push(_.random(1, 33));
+                systemBalls = _.uniq(systemBalls);
+                if (systemBalls.length == 6) {
+                    break;
+                }
+            }
+            systemBalls.push(_.random(1, 16));
+            return systemBalls;
+        }
+
+        function render(ary, node) {
+            node.html(_.join(_.map(ary, (item, index) => {
+                if (index > 5) {
+                    return `<li class="blue-ball">${item}</li>`;
+                }
+                return `<li class="red-ball">${item}</li>`;
+            }), ""));
+        }
+
+        function judgement(ary1, ary2) {
+            let [userRed, userBlue] = _.chunk(ary1, 6);
+            let [systemRed, systemBlue] = _.chunk(ary2, 6);
+
+            let red = _.intersection(userRed, systemRed);
+            let blue = _.intersection(userBlue, systemBlue);
+
+            if (red.length == 6 && blue.length == 1) {
+                $("#prompt").text("一等奖");
+            } else if (red.length == 6) {
+                $("#prompt").text("二等奖");
+            } else if (red.length == 5 && blue.length == 1) {
+                $("#prompt").text("三等奖");
+            } else if (red.length == 4) {
+                $("#prompt").text("四等奖");
+            } else {
+                $("#prompt").text("没有中奖");
+            }
+        }
+    </script>
+
+</body>
+
+</html>

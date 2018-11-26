@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        .wrap {
+            display: flex;
+            width: 500px;
+            justify-content: space-between;
+        }
+
+        .wrap ul {
+            width: 200px;
+            list-style-type: none;
+        }
+
+        .wrap ul li {
+            padding: 10px 0;
+            text-align: center;
+            border: 1px solid white;
+        }
+
+        .wrap ul:first-child {
+            border: 1px solid brown;
+        }
+
+        .left-li {
+            background-color: brown;
+        }
+
+        .wrap ul:last-child {
+            border: 1px solid cadetblue;
+        }
+
+        .right-li {
+            background-color: cadetblue;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrap">
+        <ul id="leftUl">
+            <li class="left-li">1</li>
+            <li class="left-li">2</li>
+            <li class="left-li">3</li>
+            <li class="left-li">4</li>
+        </ul>
+        <ul id="rightUl">
+            <li class="right-li">5</li>
+            <li class="right-li">6</li>
+            <li class="right-li">7</li>
+            <li class="right-li">8</li>
+        </ul>
+    </div>
+
+    <div style="margin-top: 20px;">
+        <input type="button" value="移动第一个" id="firstToRight">
+        <input type="button" value="移动最后一个" id="lastToRight">
+        <input type="button" value="移动全部" id="allToRight">
+    </div>
+
+    <script>
+        let firstToRight = document.getElementById("firstToRight");
+        let rightUl = document.getElementById("rightUl");
+        let firstRight = rightUl.firstElementChild;
+        firstToRight.onclick = function () {
+            let firstLeft = document.querySelector("#leftUl > li");
+            rightUl.insertBefore(firstLeft, firstRight);
+        }
+
+
+
+        let lastToRight = document.getElementById("lastToRight");
+        lastToRight.onclick = function () {
+            let lastLeft = document.querySelector("#leftUl > li:last-child");
+            rightUl.appendChild(lastLeft);
+        }
+
+        let leftLis = document.getElementsByClassName("left-li");
+        let allToRight = document.getElementById("allToRight");
+        allToRight.onclick = function () {
+            for (let i = 0; i < leftLis.length; i++) {
+                rightUl.appendChild(leftLis[0]);
+            }
+        }
+
+
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>学生信息管理系统</title>
+</head>
+
+<body>
+    <h1>学生管理</h1>
+    <!-- 新增 -->
+    <form>
+        <h3>增加</h3>
+        <div>
+            <label for="addName">姓名：</label>
+            <input type="text" id="addName">
+        </div>
+        <div>
+            <label for="addAge">年龄：</label>
+            <input type="text" id="addAge">
+        </div>
+        <div>
+            <label>性别：</label>
+            <input type="radio" id="addMale" name="addGender" value="男">
+            <label for="addMale">男</label>
+            <input type="radio" id="addFemale" name="addGender" value="女">
+            <label for="addFemale">女</label>
+        </div>
+        <div>
+            <input type="button" value="新增" id="addBtn">
+        </div>
+    </form>
+    <!-- 修改 -->
+    <form>
+        <h3>修改</h3>
+        <input type="hidden" id="updateId">
+        <div>
+            <label for="updateName">姓名：</label>
+            <input type="text" id="updateName">
+        </div>
+        <div>
+            <label for="updateAge">年龄：</label>
+            <input type="text" id="updateAge">
+        </div>
+        <div>
+            <label>性别：</label>
+            <input type="radio" id="updateMale" name="updateGender" value="男">
+            <label for="updateMale">男</label>
+            <input type="radio" id="updateFemale" name="updateGender" value="女">
+            <label for="updateFemale">女</label>
+        </div>
+        <div>
+            <input type="button" value="确认修改" id="updateBtn">
+        </div>
+    </form>
+    <!-- 查询 -->
+    <form>
+        <h3>查询</h3>
+        <select id="searchType">
+            <option value="name">姓名</option>
+            <option value="age">年龄</option>
+            <option value="gender">性别</option>
+        </select>
+        <input type="text" id="searchText">
+        <input type="button" value="搜索" id="searchBtn">
+    </form>
+    <div>
+        <h3>学生列表</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>姓名</th>
+                    <th>年龄</th>
+                    <th>性别</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody id="tb"></tbody>
+        </table>
+    </div>
+    <script src="./js/mock-min.js"></script>
+    <script src="./js/tools.js"></script>
+    <script src="./js/server.js"></script>
+    <script>
+        // 列表渲染
+        let tb = document.getElementById("tb");
+        render();
+        function render(data) {
+            ajax({
+                url: '/students/getStudents?' + data,
+                success(msg) {
+                    tb.innerHTML = msg.map(item => {
+                        return `
+                            <tr>
+                                <td>${item.name}</td>    
+                                <td>${item.age}</td>    
+                                <td>${item.gender}</td>    
+                                <td>
+                                    <input type="button" data-id="${item.id}" value="修改"/>    
+                                    <input type="button" data-id="${item.id}" value="删除"/>    
+                                </td>    
+                            </tr>
+                        `
+                    }).join("");
+                }
+            })
+        }
+
+        // 新增
+        let addBtn = document.getElementById("addBtn");
+        let addName = document.getElementById("addName");
+        let addAge = document.getElementById("addAge");
+        let addGender = document.getElementsByName("addGender");
+        addBtn.onclick = function () {
+            let gender;
+            if (addGender[0].checked) {
+                gender = addGender[0].value;
+            } else {
+                gender = addGender[1].value;
+            }
+            ajax({
+                type: 'post',
+                url: '/students/addStudents',
+                data: `name=${addName.value}&age=${addAge.value}&gender=${gender}`,
+                success(msg) {
+                    if (msg) {
+                        console.log("新增成功！");
+                        render();
+                    }
+                }
+            })
+        }
+
+        // 删除和修改
+        let updateId = document.getElementById("updateId");
+        let updateName = document.getElementById("updateName");
+        let updateAge = document.getElementById("updateAge");
+        let updateGender = document.getElementsByName("updateGender");
+        tb.onclick = function (e) {
+            if (e.target.value == "删除") {
+                ajax({
+                    type: 'post',
+                    url: '/students/removeStudents',
+                    data: `id=${e.target.dataset.id}`,
+                    success(msg) {
+                        if (msg) {
+                            render();
+                        }
+                    }
+                })
+            }
+            if (e.target.value == "修改") {
+                ajax({
+                    type: 'post',
+                    url: '/students/getOne',
+                    data: `id=${e.target.dataset.id}`,
+                    success(msg) {
+                        if (msg) {
+                            let { id, name, age, gender } = msg;
+                            updateId.value = id;
+                            updateName.value = name;
+                            updateAge.value = age;
+                            if (updateGender[0].value == gender) {
+                                updateGender[0].checked = true;
+                            } else {
+                                updateGender[1].checked = true;
+                            }
+                        }
+                    }
+                })
+            }
+        }
+        // 确认修改
+        let updateBtn = document.getElementById("updateBtn");
+        updateBtn.onclick = function () {
+            let gender;
+            if (updateGender[0].checked) {
+                gender = updateGender[0].value;
+            } else {
+                gender = updateGender[1].value;
+            }
+            ajax({
+                type: 'post',
+                url: '/students/updateStudents',
+                data: `id=${updateId.value}&name=${updateName.value}&age=${updateAge.value}&gender=${gender}`,
+                success(msg) {
+                    if (msg) {
+                        render();
+                    }
+                }
+            })
+        }
+
+        // 查询
+        let searchBtn = document.getElementById("searchBtn");
+        let searchType = document.getElementById("searchType");
+        let searchText = document.getElementById("searchText");
+        searchBtn.onclick = function () {
+            render(`type=${searchType.value}&value=${searchText.value}`);
+        }
+    </script>
+</body>
+
+</html>

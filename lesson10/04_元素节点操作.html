@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <div>
+        <h1>已有的</h1>
+    </div>
+    <p></p>
+    <input type="button" value="点击" id="btn">
+
+    <script>
+        let btn = document.getElementById("btn");
+        btn.onclick = function() {
+            console.log("hello");
+        }
+
+
+
+        // 创建元素节点
+        let h1Node = document.createElement("h1");
+        // console.log(h1Node);
+        // // 添加元素节点
+        let divNode = document.querySelector("div");
+        let oldH1 = document.querySelector("h1");
+        // // divNode.appendChild(h1Node);   // 作为最后一个子元素添加进去
+        // divNode.insertBefore(h1Node, oldH1);
+        // let pNode = document.querySelector("p");
+        // divNode.insertBefore(pNode, oldH1);
+        // 删除
+        // divNode.removeChild(oldH1);
+        // 替换
+        // divNode.replaceChild(h1Node, oldH1);
+        // 复制
+        let cloneNode = oldH1.cloneNode(true);
+        console.log(cloneNode);
+
+
+
+
+    </script>
+</body>
+</html>

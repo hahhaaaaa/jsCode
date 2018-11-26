@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script>
+        console.log(document.querySelector("p"));
+        
+    </script>
+</head>
+
+<body>
+    <div>
+        <div class="father">
+            <p>1</p>
+            <p>2</p>
+            <p>3</p>
+        </div>
+    </div>
+
+    <script>
+        // let pNode = document.querySelector("p");
+        // // 查找父节点
+        // let fatherNode = pNode.parentNode;
+        // // console.log(pNode.parentElement);   // 非标准
+        // // console.log(fatherNode);
+
+        // // // 查找子节点
+        // let divNode = document.getElementsByClassName("father")[0];
+        // // console.log(divNode.firstChild);
+        // // console.log(divNode.lastChild);
+        // // console.log(divNode.childNodes);
+        // // console.log(divNode.firstElementChild);  // 非标准  
+        // // console.log(divNode.lastElementChild);  // 非标准
+        // // console.log(divNode.children);  // 非标准
+
+        // // // 查找兄弟节点
+        // let p = document.querySelector(".father > p:nth-child(2)");
+        // // console.log(p.previousSibling.previousSibling);
+        // // console.log(p.nextSibling.nextSibling);
+
+        // console.log(p.previousElementSibling);  // 非标准
+        // console.log(p.nextElementSibling);  // 非标准
+    </script>
+</body>
+
+</html>

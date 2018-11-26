@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+    <a data-abc="123" class="link">连接</a>
+    <input type="text">
+    <div></div>
+
+    <script>
+        let a = document.querySelector("a");
+        let input = document.querySelector("input");
+        a.href = "#";
+        console.log(input.type);
+        console.log(a.abc);
+        console.log(a.dataset.abc);
+
+        console.log(a.className);
+        // label.htmlFor
+
+
+        // getAttribute();
+        // setAttribute();
+
+    </script>
+
+</body>
+
+</html>

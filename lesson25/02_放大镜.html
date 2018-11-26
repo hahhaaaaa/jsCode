@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        .wrap {
+            width: 870px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .middleImage,
+        .largeImage {
+            width: 430px;
+            height: 430px;
+            border: 1px solid #bbb;
+        }
+
+        .middleImage {
+            background: url("./images/imgA_2.jpg") no-repeat;
+            position: relative;
+        }
+
+        .largeImage {
+            background: url("./images/imgA_3.jpg") no-repeat;
+            display: none;
+        }
+
+        .enlarge {
+            width: 231px;
+            height: 231px;
+            background: url("./images/bg.png");
+            position: absolute;
+            left: 0;
+            top: 0;
+            display: none;
+        }
+
+        .smallImage {
+            list-style-type: none;
+            display: flex;
+            width: 200px;
+            justify-content: space-between;
+        }
+
+        .smallImage li {
+            width: 60px;
+            height: 60px;
+            border: 1px solid #bbb;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrap">
+        <!-- 左边中图 -->
+        <div class="middleImage">
+            <!-- 透明框 -->
+            <div class="enlarge"></div>
+        </div>
+        <!-- 右边大图 -->
+        <div class="largeImage"></div>
+    </div>
+    <!-- 下边三个小图 -->
+    <ul class="smallImage">
+        <li><img src="./images/imgA_1.jpg" alt=""></li>
+        <li><img src="./images/imgB_1.jpg" alt=""></li>
+        <li><img src="./images/imgC_1.jpg" alt=""></li>
+    </ul>
+
+    <script src="../jquery-1.12.4.min.js"></script>
+    <script>
+        let middleImages = ["imgA_2.jpg", "imgB_2.jpg", "imgC_2.jpg"]; // 中图路径
+        let largeImages = ["imgA_3.jpg", "imgB_3.jpg", "imgC_3.jpg"];  // 大图路径
+
+        $(".smallImage>li").mouseenter(function(){
+            let i = $(this).index();
+            $(".middleImage").css("background", `url("./images/${middleImages[i]}") no-repeat`);
+            $(".largeImage").css("background", `url("./images/${largeImages[i]}") no-repeat`);
+        })
+
+        $(".middleImage").hover(
+            function(){
+                $(".enlarge,.largeImage").css("display", "block");
+            },
+            function(){
+                $(".enlarge,.largeImage").css("display", "none");
+            }
+        ).mousemove(function(e) {
+            // 获取鼠标相对于中图的坐标
+            let {pageX, pageY} = e;  // 鼠标相对于页面的坐标
+            let {left, top} = $(this).offset(); // 中图相对于页面的坐标
+            let mouseX = pageX - left - $(".enlarge").outerWidth() / 2 - 1;
+            let mouseY = pageY - top - $(".enlarge").outerHeight() / 2 - 1;
+            if(mouseX <= 0) {
+                mouseX = 0;
+            } else if(mouseX >= $(this).innerWidth() - $(".enlarge").outerWidth()) {
+                mouseX = $(this).innerWidth() - $(".enlarge").outerWidth()
+            }
+
+            if(mouseY <= 0) {
+                mouseY = 0;
+            } else if(mouseY >= $(this).innerHeight() - $(".enlarge").outerHeight()){
+                mouseY = $(this).innerHeight() - $(".enlarge").outerHeight()
+            }
+
+            $(".enlarge").css({
+                left: mouseX,
+                top: mouseY
+            });
+
+            $(".largeImage").css({
+                backgroundPositionX: -mouseX * 800 / 430,
+                backgroundPositionY: -mouseY * 800 / 430
+            })
+        })
+
+
+    </script>
+</body>
+
+</html>
